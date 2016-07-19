@@ -1,3 +1,5 @@
 # JetBrains
 
 /.idea
+/01-basic_setting/node_modules
+/01-basic_setting/build
