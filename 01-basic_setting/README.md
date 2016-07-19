@@ -51,7 +51,29 @@ component.js
         };
 7. html-webpack-plugin 설치(npm install --save-dev html-webpack-plugin)
 8. webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
-9. package.json 에서 scripts 부분에 "start":"webpack-dev-server", "build":"webpack" 추가
+9. package.json 에 ShortCut code 추가
+
+    "scripts": {
+        "build": "webpack",
+        "start": "webpack-dev-server"
+      },
+
 10. babel 라이브러리 설치
 11. babel loader 설정 추가 (webpack.config.js)
+
+    module: {
+            loaders: [
+                {
+                    test: /\.jsx?$/,
+                    loader: 'babel',
+                    query: {
+                        cacheDirectory: true,
+                        presets: ['react', 'es2015']
+                    },
+                    exclude: /node_modules/,
+                    include: PATHS.app
+                }
+            ]
+        },
+
 12. index.js, component.js ES6 문법 및 React 문법으로 수정
