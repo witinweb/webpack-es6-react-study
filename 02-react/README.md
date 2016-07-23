@@ -8,11 +8,11 @@
 ## JSX
 
 - 자바스크립트 구문이다
-- React.createElement("h1", null, "Hello World"); (<h1>Hello World</h1>)
+- `React.createElement("h1", null, "Hello World"); (<h1>Hello World</h1>)`
 - 낙타 표기법으로 작성
 - 모든 요소는 짝이 맞아야 한다. 종료 태그가 없는 태그는 닫아주여야 한다 (ex, <img src=".." />, <br/>)
 - 특성 이름은 DOM API 기반으로 작성한다 (class = > className)
-- 복수 node를 렌더링 하려면 div 태그로 묶어주어야 한다 (ex, <div><h1>..</h1><h2>...</h2></div>)
+- 복수 node를 렌더링 하려면 div 태그로 묶어주어야 한다 (ex, `<div><h1>..</h1><h2>...</h2></div>`)
 - 조건절을 이용할때는 삼항식을 이용 (condition ? "" : "") 하거나 조건을 밖으로 빼서 처리한다
 - 주석은 자바스크립트와 동일하게 사용한다(/* */)
 - 인라인 스타일을 자바스크립트 객체로 지정해 사용가능(셀렉터 없이 스타일 범위 지정가능, 충돌 방지)
