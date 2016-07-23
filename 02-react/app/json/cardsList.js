@@ -3,6 +3,7 @@ let cardsList = [
     "id": 1,
     "title": "Webpack Study",
     "description": "Webpack 환경설정 및 기능 학습",
+    "color": "#BD8D31",
     "status": "todo",
     "tasks": [
       {
@@ -31,6 +32,7 @@ let cardsList = [
     "id": 2,
     "title": "React Study",
     "description": "리엑트를 마스터 하자",
+    "color" : "#3A7E28",
     "status": "in-progress",
     "tasks": []
   }
