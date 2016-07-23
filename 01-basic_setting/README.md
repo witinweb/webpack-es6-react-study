@@ -3,9 +3,12 @@
 3. npm install -g webpack (웹팩은 처음 설치시 글로벌로 설치한후 프로젝트에 설치한다
 4. npm install --save-dev webpack
 5. app 폴더 및 기본 파일 생성
+
+
 app
     |-- index.js
     |-- component.js
+
 
 index.js
 
@@ -21,7 +24,8 @@ component.js
 
       return element;
     };
-6. webpack.config.js 생성
+
+webpack.config.js 생성
 
 
      const path = require('path');
@@ -49,45 +53,46 @@ component.js
             })
           ]
         };
-7. html-webpack-plugin 설치(npm install --save-dev html-webpack-plugin)
-8. html-webpack-template 설치(npm install --save-dev html-webpack-template)
 
-    plugins: [
-            new HtmlWebpackPlugin({
-                title: 'Webpack demo',
-                template: 'node_modules/html-webpack-template/index.ejs',
-                appMountId: 'app',
-                inject: false
-            })
-        ]
+- html-webpack-plugin 설치(npm install --save-dev html-webpack-plugin)
+- html-webpack-template 설치(npm install --save-dev html-webpack-template)
 
-8. webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
-9. package.json 에 ShortCut code 추가
+	    plugins: [
+	    	    new HtmlWebpackPlugin({
+	    		    title: 'Webpack demo',
+	    		    template: 'node_modules/html-webpack-template/index.ejs',
+	    		    appMountId: 'app',
+	    		    inject: false
+	    	    })
+	        ]
 
-    "scripts": {
-        "build": "webpack",
-        "start": "webpack-dev-server"
-      },
+- webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
+- package.json 에 ShortCut code 추가
 
-10. babel 라이브러리 설치
-11. babel loader 설정 추가 (webpack.config.js)
+	     "scripts": {
+	               "build": "webpack",
+	               "start": "webpack-dev-server"
+	             },
 
-    module: {
-            loaders: [
-                {
-                    test: /\.jsx?$/,
-                    loader: 'babel',
-                    query: {
-                        cacheDirectory: true,
-                        presets: ['react', 'es2015']
-                    },
-                    exclude: /node_modules/,
-                    include: PATHS.app
-                }
-            ]
-        },
+- babel 라이브러리 설치
+- babel loader 설정 추가 (webpack.config.js)
 
-12. index.js, component.js ES6 문법 및 React 문법으로 수정
+	    module: {
+	               loaders: [
+	                   {
+	                       test: /\.jsx?$/,
+	                       loader: 'babel',
+	                       query: {
+	                           cacheDirectory: true,
+	                           presets: ['react', 'es2015']
+	                       },
+	                       exclude: /node_modules/,
+	                       include: PATHS.app
+	                   }
+	               ]
+	           },
+
+- index.js, component.js ES6 문법 및 React 문법으로 수정
 
 -------------------
 
@@ -99,19 +104,19 @@ component.js
 
 3. Dev 환경 HMR 활성화, sourcemaps 설정
 
-    devtool: 'eval-source-map',
-    devServer: {
-            historyApiFallback: true,
-            hot: true, // HRM 활성화
-            inline: true, // 페이지가 변경되면 새로고침함
-            color: true, // 터미널 색 지정
-            progress: true,
-            stats: 'errors-only',
-            host: process.env.HOST,
-            port: process.env.PORT
-        },
-        plugins: [
-            new webpack.HotModuleReplacementPlugin({
-                multiStep: true
-            })
-        ]
+	    devtool: 'eval-source-map',
+	            devServer: {
+	                historyApiFallback: true,
+	                hot: true, // HRM 활성화
+	                inline: true, // 페이지가 변경되면 새로고침함
+	                color: true, // 터미널 색 지정
+	                progress: true,
+	                stats: 'errors-only',
+	                host: process.env.HOST,
+	                port: process.env.PORT
+	            },
+	            plugins: [
+	                new webpack.HotModuleReplacementPlugin({
+	                    multiStep: true
+	                })
+	            ]
