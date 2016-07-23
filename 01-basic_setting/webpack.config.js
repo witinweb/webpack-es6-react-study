@@ -6,6 +6,8 @@ const PATHS = {
     build: path.join(__dirname, 'build')
 };
 
+const TARGET = process.env.npm_lifecycle_event; // npm script 실행 event
+
 module.exports = {
     // Entry accepts a path or an object of entries.
     // We'll be using the latter form given it's

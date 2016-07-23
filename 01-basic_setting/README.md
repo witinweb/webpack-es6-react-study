@@ -50,6 +50,17 @@ component.js
           ]
         };
 7. html-webpack-plugin 설치(npm install --save-dev html-webpack-plugin)
+8. html-webpack-template 설치(npm install --save-dev html-webpack-template)
+
+    plugins: [
+            new HtmlWebpackPlugin({
+                title: 'Webpack demo',
+                template: 'node_modules/html-webpack-template/index.ejs',
+                appMountId: 'app',
+                inject: false
+            })
+        ]
+
 8. webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
 9. package.json 에 ShortCut code 추가
 
@@ -77,3 +88,7 @@ component.js
         },
 
 12. index.js, component.js ES6 문법 및 React 문법으로 수정
+
+-------------------
+
+## Webpack Dev / Build 환경 분리
