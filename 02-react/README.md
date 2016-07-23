@@ -29,4 +29,5 @@
 - List.js : 목록의 이름을 표시하고 그 안에 들어있는 모든 Card 컴포넌트를 렌더링한다. cards 배열의 개별정보를 다시 속성을 통해서 Card 컴포넌트로 전달한다
 - Card.js : 사용자 상호작용이 있는 컴포넌트
 - CheckList.js : 체크리스트 컴포넌트로
+- [레이아웃](http://imgur.com/a/QIKFa)
 
