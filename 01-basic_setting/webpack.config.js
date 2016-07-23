@@ -33,6 +33,10 @@ const common = {
                 },
                 exclude: /node_modules/,
                 include: PATHS.app
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
             }
         ]
     },

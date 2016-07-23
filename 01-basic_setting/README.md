@@ -120,3 +120,11 @@ webpack.config.js 생성
 	                    multiStep: true
 	                })
 	            ]
+
+4. CSS 로더 설치 및 webpack 설정 추가
+        npm install --save-dev style-loader css-loader
+
+        {
+            test: /\.css$/,
+            loader: 'style!css'
+        }
