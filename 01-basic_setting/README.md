@@ -92,3 +92,26 @@ component.js
 -------------------
 
 ## Webpack Dev / Build 환경 분리
+
+1. npm script event 분기처리
+
+2. webpack 설정 분리를 위한 webpack-merge 설치
+
+3. Dev 환경 HMR 활성화, sourcemaps 설정
+
+    devtool: 'eval-source-map',
+    devServer: {
+            historyApiFallback: true,
+            hot: true, // HRM 활성화
+            inline: true, // 페이지가 변경되면 새로고침함
+            color: true, // 터미널 색 지정
+            progress: true,
+            stats: 'errors-only',
+            host: process.env.HOST,
+            port: process.env.PORT
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin({
+                multiStep: true
+            })
+        ]
