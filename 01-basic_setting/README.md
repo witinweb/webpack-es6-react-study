@@ -51,7 +51,12 @@ component.js
         };
 7. html-webpack-plugin 설치(npm install --save-dev html-webpack-plugin)
 8. html-webpack-template 설치(npm install --save-dev html-webpack-template)
+9. webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
+10. package.json 에 ShortCut code 추가
+11. babel 라이브러리 설치
+12. babel loader 설정 추가 (webpack.config.js)
 
+    // 9.
     plugins: [
             new HtmlWebpackPlugin({
                 title: 'Webpack demo',
@@ -61,33 +66,30 @@ component.js
             })
         ]
 
-8. webpack-dev-server 설치(npm install --save-dev webpack-dev-server)
-9. package.json 에 ShortCut code 추가
+	// 10.
+     "scripts": {
+           "build": "webpack",
+           "start": "webpack-dev-server"
+         },
 
-    "scripts": {
-        "build": "webpack",
-        "start": "webpack-dev-server"
-      },
 
-10. babel 라이브러리 설치
-11. babel loader 설정 추가 (webpack.config.js)
-
+	// 12.
     module: {
-            loaders: [
-                {
-                    test: /\.jsx?$/,
-                    loader: 'babel',
-                    query: {
-                        cacheDirectory: true,
-                        presets: ['react', 'es2015']
-                    },
-                    exclude: /node_modules/,
-                    include: PATHS.app
-                }
-            ]
-        },
+               loaders: [
+                   {
+                       test: /\.jsx?$/,
+                       loader: 'babel',
+                       query: {
+                           cacheDirectory: true,
+                           presets: ['react', 'es2015']
+                       },
+                       exclude: /node_modules/,
+                       include: PATHS.app
+                   }
+               ]
+           },
 
-12. index.js, component.js ES6 문법 및 React 문법으로 수정
+index.js, component.js ES6 문법 및 React 문법으로 수정
 
 -------------------
 
@@ -100,18 +102,18 @@ component.js
 3. Dev 환경 HMR 활성화, sourcemaps 설정
 
     devtool: 'eval-source-map',
-    devServer: {
-            historyApiFallback: true,
-            hot: true, // HRM 활성화
-            inline: true, // 페이지가 변경되면 새로고침함
-            color: true, // 터미널 색 지정
-            progress: true,
-            stats: 'errors-only',
-            host: process.env.HOST,
-            port: process.env.PORT
-        },
-        plugins: [
-            new webpack.HotModuleReplacementPlugin({
-                multiStep: true
-            })
-        ]
+            devServer: {
+                historyApiFallback: true,
+                hot: true, // HRM 활성화
+                inline: true, // 페이지가 변경되면 새로고침함
+                color: true, // 터미널 색 지정
+                progress: true,
+                stats: 'errors-only',
+                host: process.env.HOST,
+                port: process.env.PORT
+            },
+            plugins: [
+                new webpack.HotModuleReplacementPlugin({
+                    multiStep: true
+                })
+            ]
