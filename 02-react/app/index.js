@@ -1,5 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './component'
+import Kanban from './components/Kanban';
+import Cards from './json/cardsList.js';
+import './style.css'
 
-render(<App />, document.getElementById('app'));
+let cardsList = Cards;
+
+render(<Kanban cards={cardsList} />, document.getElementById('app'));
