@@ -3,3 +3,5 @@
 /.idea
 /01-basic_setting/node_modules
 /01-basic_setting/build
+/02-react/node_modules
+/02-react/build
