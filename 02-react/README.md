@@ -55,4 +55,11 @@
 - Card.js : 사용자 상호작용이 있는 컴포넌트
 - CheckList.js : 체크리스트 컴포넌트로
 - [레이아웃](http://i.imgur.com/44eJSW1.png)
+- filter : 배열에 조건을 주어 조건에 만족하지 못하는 원소들을 걸러낸다.
+- map : 배열에 특정 규칙을 적용시켜 새로운 배열을 만든다.
+
+## propTypes
+- 언제든지 컴포넌트를 열고 어떤 속성이 필요한지, 형식이 무엇인지 알수 있다.
+- 문제가 발생했을때 콘솔에 오류 메시지를 출력해서 디버깅을 용이하게 한다. 
+- [재사용가능한 컴포넌트](https://facebook.github.io/react/docs/reusable-components-ko-KR.html)
 
