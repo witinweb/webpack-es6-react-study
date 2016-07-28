@@ -39,8 +39,6 @@
 
 ## 컴포넌트 생명주기 활용
 
-### 데이터를 json 파일로 분리 (`contacts.json`)
-
-### `window.fetch` 함수를 이용 (polyfill 설치 : `npm install --save whatwg-fetch`)
-
-### `ContactsAppContainer`라는 컴포는트를 만들고 데이터를 가져오는 로직 추가
+- 데이터를 json 파일로 분리 (`contacts.json`)
+- `window.fetch` 함수를 이용 (polyfill 설치 : `npm install --save whatwg-fetch`)
+- `ContactsAppContainer`라는 컴포넌트를 만들고 데이터를 가져오는 로직 추가
