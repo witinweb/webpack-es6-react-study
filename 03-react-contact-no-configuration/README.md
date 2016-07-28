@@ -1,280 +1,46 @@
-Below you will find some information on how to perform common tasks.  
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/template/README.md).
+## 컴포넌트
 
-## Sending Feedback
+- 상태를 관리하는 컴포넌트
+- 데이터를 표시하는 순수 컴포넌트
+- 컴포넌트는 대부분 순수 컴포넌트로 만드는게 좋다. 상태를 다수의 컴포넌트로 분산하면 관리가 힘들고 작동방식을 확인하기 어렵다. 
 
-We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
 
-## Folder Structure
+## 컴포넌트 계층
 
-After creation, you project should look like this:
+- ContactsApp : 주 컴포넌트 (상태관리 컴포넌트)
+    - SearchBar : 사용자 연락처를 필터링할 수 있게 입력 필드를 표시(순수 컴포넌트)
+    - ContactList : 데이터를 반복해서 여러 ContactItem 을 생성(순수 컴포넌트)
+        - ContactItem : 연락처 데이터를 표시(순수 컴포넌트)
 
-```
-my-app/
-  README.md
-  index.html
-  favicon.ico
-  node_modules/
-  package.json
-  src/
-    App.css
-    App.js
-    index.css
-    index.js
-    logo.svg
-```
 
-For the project to build, **these files must exist with exact filenames**:
+## 컴포넌트 생명주기
 
-* `index.html` is the page template;
-* `favicon.ico` is the icon you see in the browser tab;
-* `src/index.js` is the JavaScript entry point.
+### 마운팅
 
-You can delete or rename the other files.
+- `componentWillMount` : 초기 렌더링을 수행하기 직전 한번 호출, 상태를 설정하더라도 렌더링이 다시 트리거되지 않는다
+- `componentDidMount` : 초기 렌더링을 수행한 직후 한번 호출, 데이터 가져오기 등의 작업에 이용할 수 있다
 
-You may create subdirectories inside `src`. For faster rebuilds, only files inside `src` are processed by Webpack.  
-You need to **put any JS and CSS files inside `src`**, or Webpack won’t see them.
+### 언마운팅
 
-You can, however, create more top-level directories.  
-They will not be included in the production build so you can use them for things like documentation.
+- `componentWillUnMount` : 컴포넌트가 DOM에서 언마운팅 되기 직전 호출, 정리 작업을 해야할 때 유용
 
-## Available Scripts
+### 속성변경
 
-In the project directory, you can run:
+- `componentWillReceiveProps` : 컴포넌트가 새 속성을 받을 때 호출, `this.setState()`를 호출해도 렌더링이 트리거 되지 않는다
+- `shouldComponentUpdate` : render 함수보다 먼저 호출되는 특수한 함수, 해당 컴포넌트의 렌더링을 생략할 수 있는 기회를 제공, 성능최적화에 이용
+- `componentWillUpdate` : 새로운 속성이나 상태를 수신하고 렌더링 하기 직전에 호출, 예정된 업데이트를 준비하는데만 이용해야함, 역시 상태변경 불가
+- `render`
+- `componentDidUpdate` : 컴포넌트 업데이트가 DOM으로 플러시된 직후 호출
 
-### `npm start`
+### 상태변경
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 속성변경과 거의 동일한 생명주기, `componentWillReceiveProps`에 해당하는 메서드는 없다. 들어오는 속성 전환은 상태변경을 유발할 수 있지만 그 반대는 안됨, 상태 변경에 반응해 작업을 수행하려면 `componentWillUpdate`를 이용
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm run build`
+## 컴포넌트 생명주기 활용
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 데이터를 json 파일로 분리 (`contacts.json`)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### `window.fetch` 함수를 이용 (polyfill 설치 : `npm install --save whatwg-fetch`)
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transient dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## How To...
-
-### Import a Component
-
-This project setup supports ES6 modules thanks to Babel.  
-While you can still use `require()` and `module.exports`, we encourage you to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html) instead.
-
-For example:
-
-### `Button.js`
-
-```js
-import React, { Component } from 'react';
-
-class Button extends Component {
-  render() {
-    // ...
-  }
-}
-
-export default Button; // Don’t forget to use export default!
-```
-
-### `DangerButton.js`
-
-```js
-import React, { Component } from 'react';
-import Button from './Button'; // Import a component from another file
-
-class DangerButton extends Component {
-  render() {
-    return <Button color='red' />;
-  }
-}
-
-export default DangerButton;
-```
-
-Be aware of the [difference between default and named exports](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281). It is a common source of mistakes.
-
-We suggest that you stick to using default imports and exports when a module only exports a single thing (for example, a component). That’s what you get when you use `export default Button` and `import Button from './Button'`.
-
-Named exports are useful for utility modules that export several functions. A module may have at most one default export and as many named exports as you like.
-
-Learn more about ES6 modules:
-
-* [When to use the curly braces?](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281)
-* [Exploring ES6: Modules](http://exploringjs.com/es6/ch_modules.html)
-* [Understanding ES6: Modules](https://leanpub.com/understandinges6/read#leanpub-auto-encapsulating-code-with-modules)
-
-### Add a Stylesheet
-
-This project setup uses [Webpack](https://webpack.github.io/) for handling all assets. Webpack offers a custom way of “extending” the concept of `import` beyond JavaScript. To express that a JavaScript file depends on a CSS file, you need to **import the CSS from the JavaScript file**:
-
-#### `Button.css`
-
-```css
-.Button {
-  padding: 20px;
-}
-```
-
-#### `Button.js`
-
-```js
-import React, { Component } from 'react';
-import './Button.css'; // Tell Webpack that Button.js uses these styles
-
-class Button extends Component {
-  render() {
-    // You can use them as regular CSS styles
-    return <div className='Button' />;
-  }
-}
-```
-
-**This is not required for React** but many people find this feature convenient. You can read about the benefits of this approach [here](https://medium.com/seek-ui-engineering/block-element-modifying-your-javascript-components-d7f99fcab52b). However you should be aware that this makes your code less portable to other build tools and environments than Webpack.
-
-In development, expressing dependencies this way allows your styles to be reloaded on the fly as you edit them. In production, all CSS files will be concatenated into a single minified `.css` file in the build output.
-
-If you are concerned about using Webpack-specific semantics, you can put all your CSS right into `src/index.css`. It would still be imported from `src/index.js`, but you could always remove that import if you later migrate to a different build tool.
-
-### Post-Process CSS
-
-This project setup minifies your CSS and adds vendor prefixes to it automatically through [Autoprefixer](https://github.com/postcss/autoprefixer) so you don’t need to worry about it.
-
-For example, this:
-
-```css
-.App {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-```
-
-becomes this:
-
-```css
-.App {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-```
-
-There is currently no support for preprocessors such as Less, or for sharing variables across CSS files.
-
-### Add Images and Fonts
-
-With Webpack, using static assets like images and fonts works similarly to CSS.
-
-You can **`import` an image right in a JavaScript module**. This tells Webpack to include that image in the bundle. Unlike CSS imports, importing an image or a font gives you a string value. This value is the final image path you can reference in your code.
-
-Here is an example:
-
-```js
-import React from 'react';
-import logo from './logo.png'; // Tell Webpack this JS file uses this image
-
-console.log(logo); // /84287d09b8053c6fa598893b8910786a.png
-
-function Header() {
-  // Import result is the URL of your image
-  return <img src={logo} alt="Logo" />;
-}
-
-export default function Header;
-```
-
-This works in CSS too:
-
-```css
-.Logo {
-  background-image: url(./logo.png);
-}
-```
-
-Webpack finds all relative module references in CSS (they start with `./`) and replaces them with the final paths from the compiled bundle. If you make a typo or accidentally delete an important file, you will see a compilation error, just like when you import a non-existent JavaScript module. The final filenames in the compiled bundle are generated by Webpack from content hashes. If the file content changes in the future, Webpack will give it a different name in production so you don’t need to worry about long-term caching of assets.
-
-Please be advised that this is also a custom feature of Webpack.
-
-**It is not required for React** but many people enjoy it (and React Native uses a similar mechanism for images). However it may not be portable to some other environments, such as Node.js and Browserify. If you prefer to reference static assets in a more traditional way outside the module system, please let us know [in this issue](https://github.com/facebookincubator/create-react-app/issues/28), and we will consider support for this.
-
-### Adding Flow
-
-Flow typing is currently [not supported out of the box](https://github.com/facebookincubator/create-react-app/issues/72) with the default `.flowconfig` generated by Flow. If you run it, you might get errors like this:
-
-```
-node_modules/fbjs/lib/Deferred.js.flow:60
- 60:     Promise.prototype.done.apply(this._promise, arguments);
-                           ^^^^ property `done`. Property not found in
-495: declare class Promise<+R> {
-     ^ Promise. See lib: /private/tmp/flow/flowlib_34952d31/core.js:495
-
-node_modules/fbjs/lib/shallowEqual.js.flow:29
- 29:     return x !== 0 || 1 / (x: $FlowIssue) === 1 / (y: $FlowIssue);
-                                   ^^^^^^^^^^ identifier `$FlowIssue`. Could not resolve name
-
-src/App.js:3
-  3: import logo from './logo.svg';
-                      ^^^^^^^^^^^^ ./logo.svg. Required module not found
-
-src/App.js:4
-  4: import './App.css';
-            ^^^^^^^^^^^ ./App.css. Required module not found
-
-src/index.js:5
-  5: import './index.css';
-            ^^^^^^^^^^^^^ ./index.css. Required module not found
-```
-
-To fix this, change your `.flowconfig` to look like this:
-
-```
-[libs]
-./node_modules/fbjs/flow/lib
-
-[options]
-esproposal.class_static_fields=enable
-esproposal.class_instance_fields=enable
-
-module.name_mapper='^\(.*\)\.css$' -> 'react-scripts/config/flow/css'
-module.name_mapper='^\(.*\)\.\(jpg\|png\|gif\|eot\|svg\|ttf\|woff\|woff2\|mp4\|webm\)$' -> 'react-scripts/config/flow/file'
-
-suppress_type=$FlowIssue
-suppress_type=$FlowFixMe
-```
-
-Re-run flow, and you sholdn’t get any extra issues.
-
-If you later `eject`, you’ll need to replace `react-scripts` references with the `<PROJECT_ROOT>` placeholder, for example:
-
-```
-module.name_mapper='^\(.*\)\.css$' -> '<PROJECT_ROOT>/config/flow/css'
-module.name_mapper='^\(.*\)\.\(jpg\|png\|gif\|eot\|svg\|ttf\|woff\|woff2\|mp4\|webm\)$' -> '<PROJECT_ROOT>/config/flow/file'
-```
-
-We will consider integrating more tightly with Flow in the future so that you don’t have to do this.
-
-### Something Missing?
-
-If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/template/README.md)
+### `ContactsAppContainer`라는 컴포는트를 만들고 데이터를 가져오는 로직 추가
