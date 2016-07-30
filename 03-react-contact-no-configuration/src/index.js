@@ -6,7 +6,8 @@ class ContactsAppContainer extends Component{
     constructor(){
         super();
         this.state={
-            contacts:[]
+            contacts:[],
+            filterOptions: []
         };
     }
 
@@ -19,11 +20,19 @@ class ContactsAppContainer extends Component{
             .catch((error) => {
                 console.log("Error fetching", error);
             });
+        fetch('./src/filter-options.json')
+            .then((response) => response.json())
+            .then((responseData) => {
+                this.setState({filterOptions: responseData});
+            })
+            .catch((error) => {
+                console.log("Error fetching", error);
+            });
     }
 
     render(){
         return(
-            <ContactsApp contacts={this.state.contacts} />
+            <ContactsApp contacts={this.state.contacts} filterOptions={this.state.filterOptions} />
         )
     }
 }
@@ -47,8 +56,10 @@ class ContactsApp extends Component{
         return(
             <div>
                 <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)} />
+                <FilterOptionList filterOptions={this.props.filterOptions} />
                 <ContactList contacts={this.props.contacts}
                              filterText={this.state.filterText} />
+                
             </div>
         )
     }
@@ -106,6 +117,35 @@ class ContactItem extends Component{
 ContactItem.propTypes = {
     name : PropTypes.string.isRequired,
     email : PropTypes.string.isRequired
+}
+
+class FilterOptionList extends Component{
+    render(){
+        console.log('options:' + this.props.filterOptions);
+        return (
+        <select>{this.props.filterOptions.map(
+                (option, i) => <FilterOption key={i}
+                                          name={option.name}
+                                          email={option.email} />
+            )}
+        </select>
+        )
+    }
+}
+FilterOptionList.propTypes = {
+    name : PropTypes.string.isRequired,
+    email : PropTypes.string.isRequired
+}
+
+class FilterOption extends Component{
+    render(){
+        return <option selected={this.props.selected} value={this.props.target}>{this.props.name}</option>
+    }
+}
+FilterOption.propTypes = {
+    name : PropTypes.string.isRequired,
+    email : PropTypes.string.isRequired,
+    selected : PropTypes.string
 }
 
 render(
