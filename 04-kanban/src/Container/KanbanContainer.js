@@ -35,7 +35,7 @@ class KanbanContainer extends Component{
     
     deleteTask(cardId, taskId, taskIndex){
         // 카드 인덱스 찾기
-        let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+        let cardIndex = this.state.cards.findIndex((card) => card.id === cardId);
 
         // 해당 태스크를 제외한 새로운 객체를 생성
         let nextState = update(this.state.cards, {
