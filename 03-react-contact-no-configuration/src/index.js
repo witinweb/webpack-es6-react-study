@@ -46,24 +46,19 @@ class ContactsApp extends Component{
     constructor(){
         super();
         this.state={
-            filterText: '',
-            selectedOption: 'name'
+            filterText: ''
         };
     }
     handleUserInput(searchTerm){
         this.setState({filterText:searchTerm})
     }
-    handleUserOptionSelect(selectedOption){
-        this.setState({selectedOption:selectedOption })
-    }
     render(){
         return(
             <div>
                 <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)} />
-                <FilterOptionList filterOptions={this.props.filterOptions} selectedOption={this.state.selectedOption} onChange={this.handleUserOptionSelect.bind(this)} />
+                <FilterOptionList filterOptions={this.props.filterOptions} />
                 <ContactList contacts={this.props.contacts}
-                             filterText={this.state.filterText}
-                             selectedOption={this.state.selectedOption} />
+                             filterText={this.state.filterText} />
                 
             </div>
         )
@@ -95,9 +90,8 @@ SearchBar.proptypes = {
 
 class ContactList extends Component{
     render(){
-        let target = this.props.selectedOption
         let filteredContacts = this.props.contacts.filter(
-            (contact) => contact[target].indexOf(this.props.filterText) !== -1
+            (contact) => contact.name.indexOf(this.props.filterText) !== -1
         );
         return(
         <ul>
@@ -126,23 +120,21 @@ ContactItem.propTypes = {
 }
 
 class FilterOptionList extends Component{
-    handleChange(event){
-        this.props.onChange(event.target.value)
-    }
     render(){
         console.log('options:' + this.props.filterOptions);
         return (
-        <select onChange={this.handleChange.bind(this)}>{this.props.filterOptions.map(
+        <select>{this.props.filterOptions.map(
                 (option, i) => <FilterOption key={i}
                                           name={option.name}
-                                          target={option.target}/>
+                                          email={option.email} />
             )}
         </select>
         )
     }
 }
 FilterOptionList.propTypes = {
-    filterOptions: PropTypes.arrayOf(PropTypes.object)
+    name : PropTypes.string.isRequired,
+    email : PropTypes.string.isRequired
 }
 
 class FilterOption extends Component{
@@ -152,7 +144,7 @@ class FilterOption extends Component{
 }
 FilterOption.propTypes = {
     name : PropTypes.string.isRequired,
-    target : PropTypes.string.isRequired,
+    email : PropTypes.string.isRequired,
     selected : PropTypes.string
 }
 
