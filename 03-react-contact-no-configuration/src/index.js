@@ -37,24 +37,44 @@ class ContactsApp extends Component{
     constructor(){
         super();
         this.state={
-            filterText: ''
+            filterText: '',
+            filter: 'name'
         };
     }
     handleUserInput(searchTerm){
         this.setState({filterText:searchTerm})
     }
+    handleUserSelect(searchFilter){
+        this.setState({filter:searchFilter})
+    }
     render(){
         return(
             <div>
                 <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)} />
+                <OptionFilter filter={this.state.filter} onUserSelect={this.handleUserSelect.bind(this)} />
                 <ContactList contacts={this.props.contacts}
-                             filterText={this.state.filterText} />
+                             filterText={this.state.filterText}
+                             filter={this.state.filter} />
             </div>
         )
     }
 }
 ContactsApp.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.object)
+}
+
+class OptionFilter extends Component{
+    handleChange(event){
+        this.props.onUserSelect(event.target.value)
+    }
+    render(){
+        return(
+            <select value={this.props.filter} onChange={this.handleChange.bind(this)}>
+                <option value="name">이름</option>
+                <option value="email">이메일</option>
+            </select>
+        )
+    }
 }
 
 // 부모에서 속성을 통해 filterText(문자열) 와 onUserInput(콜백 함수)을 받는 순수 컴포넌트
@@ -79,9 +99,16 @@ SearchBar.proptypes = {
 
 class ContactList extends Component{
     render(){
-        let filteredContacts = this.props.contacts.filter(
-            (contact) => contact.name.indexOf(this.props.filterText) !== -1
-        );
+        var filteredContacts = "";
+        if(this.props.filter === 'name'){
+            filteredContacts = this.props.contacts.filter(
+                (contact) => contact.name.indexOf(this.props.filterText) !== -1
+            );
+        }else{
+            filteredContacts = this.props.contacts.filter(
+                (contact) => contact.email.indexOf(this.props.filterText) !== -1
+            );
+        }
         return(
         <ul>
             {filteredContacts.map(
