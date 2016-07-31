@@ -13,7 +13,7 @@
         - ContactItem : 연락처 데이터를 표시(순수 컴포넌트)
 
 
-## 컴포넌트 생명주기 ((공식문서)[https://facebook.github.io/react/docs/component-specs-ko-KR.html], (참고문서)[http://devpools.kr/2016/07/10/react-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%9D%EB%AA%85-%EC%A3%BC%EA%B8%B0/]) 
+## 컴포넌트 생명주기 ([공식문서](https://facebook.github.io/react/docs/component-specs-ko-KR.html), [참고문서](http://devpools.kr/2016/07/10/react-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%9D%EB%AA%85-%EC%A3%BC%EA%B8%B0/)) 
 
 ### 마운팅
 

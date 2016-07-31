@@ -57,7 +57,7 @@
 - [레이아웃](http://i.imgur.com/44eJSW1.png)
 - filter : 배열에 조건을 주어 조건에 만족하지 못하는 원소들을 걸러낸다.
 - map : 배열에 특정 규칙을 적용시켜 새로운 배열을 만든다.
-- (전개연산자)[https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_operator]
+- [전개연산자](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_operator)
 
 ## propTypes
 - 언제든지 컴포넌트를 열고 어떤 속성이 필요한지, 형식이 무엇인지 알수 있다.
