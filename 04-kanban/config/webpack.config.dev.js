@@ -3,6 +3,9 @@ var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var paths = require('./paths');
+var Dashboard = require('webpack-dashboard');
+var DashboardPlugin = require('webpack-dashboard/plugin');
+var dashboard = new Dashboard();
 
 module.exports = {
   devtool: 'eval',
@@ -88,6 +91,7 @@ module.exports = {
       favicon: paths.appFavicon,
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+    new DashboardPlugin(dashboard.setData),
     // Note: only CSS is currently hot reloaded
     new webpack.HotModuleReplacementPlugin()
   ]
